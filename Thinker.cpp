@@ -13,6 +13,9 @@ Thinker::Thinker() {
     connect(this, &Thinker::operate_signal, worker, &Worker::doWork_slot);
     connect(worker, &Worker::resultReady, this, &Thinker::handleWorkerResults_slot);
     workerThread.start();
+    qTimer.setInterval(interval);
+    connect(&qTimer, &QTimer::timeout, this, &Thinker::operate_signal);
+    qTimer.start();
 }
 
 Thinker::~Thinker() {
