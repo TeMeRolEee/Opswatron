@@ -1,7 +1,6 @@
 #include "MapStore.h"
 
 MapStore::MapStore() {
-    //matrix = new int[][];
 }
 
 MapStore::~MapStore() {
@@ -9,12 +8,15 @@ MapStore::~MapStore() {
 }
 
 void MapStore::setMap(QJsonArray &jsonArray) {
-        QVector<int> axis;
-        axis.reserve(jsonArray.first().toInt());
-        for(int i = 0; i < jsonArray.last().toInt(); i++)
-        {
-            matrix.push_back(axis);
-        }
+    width = jsonArray.first().toInt();
+    height = jsonArray.last().toInt();
+    QVector<int> axis;
+    axis.reserve(width);
+    for(int i = 0; i < jsonArray.last().toInt(); i++)
+    {
+        matrix.push_back(axis);
+    }
+
 }
 
 QVector<int> MapStore::getXaxis(int currentY) {
@@ -32,6 +34,18 @@ QVector<int> MapStore::getYaxis(int currentX) {
 }
 
 void MapStore::setWall(const int &x, const int &y) {
-    matrix.at(y)[x] = 1;
+    QVector<int> temp;
+    for(int i = 0; i < width; i++)
+    {
+        if(i != x)
+        {
+            temp.push_back(0);
+        }
+        else
+        {
+            temp.push_back(1);
+        }
+    }
+    matrix.replace(y, temp);
 }
 
