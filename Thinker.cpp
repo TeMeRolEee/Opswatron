@@ -7,24 +7,18 @@
 Thinker::Thinker() {
     players = new Players();
     mapStore = new MapStore();
-    worker = new Worker;
-    worker->moveToThread(&workerThread);
-    connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
-    connect(this, &Thinker::operate_signal, worker, &Worker::doWork_slot);
-    connect(worker, &Worker::resultReady, this, &Thinker::handleWorkerResults_slot);
-    workerThread.start();
     qTimer.setInterval(interval);
-    connect(&qTimer, &QTimer::timeout, this, &Thinker::operate_signal);
-    qTimer.start();
+    connect(&qTimer, &QTimer::timeout, this, &Thinker::doWork);
+    position.push_back(0);
+    position.push_back(0);
 }
 
 Thinker::~Thinker() {
-
+    workerThread.quit();
+    workerThread.wait();
 }
 
-void Thinker::handleWorkerResults_slot(const QString &value) {
 
-}
 
 void Thinker::setInterval(int interval) {
     Thinker::interval = interval;
@@ -75,6 +69,18 @@ void Thinker::statusHandler(const QString& input) {
         }
     }
     staticSet = true;
+    //qDebug() << qJsonObject.keys();
+    QJsonObject qJsonObject1 = qJsonObject.value("player").toObject();
+
+    direction = qJsonObject1.value("dir").toString();
+
+    QJsonArray positionArray = qJsonObject1.value("coords").toArray();
+
+    position[0] = positionArray.first().toInt();
+    position[1] = positionArray.last().toInt();
+
+    //qDebug() << direction << position[0] << position[1];
+
     qJsonValue = qJsonObject.value("walls");
     qJsonArray = qJsonValue.toArray();
 
@@ -84,18 +90,25 @@ void Thinker::statusHandler(const QString& input) {
         qJsonObject = qJsonValue.toObject();
         QJsonArray coordArray = qJsonObject.value("coords").toArray();
         mapStore->setWall(coordArray.first().toInt(), coordArray.last().toInt());
+        qDebug() << coordArray.first().toInt() << coordArray.last().toInt();
         QVector<int> qVector;
         qVector.push_back(coordArray.first().toInt());
         qVector.push_back(coordArray.last().toInt());
         players->updatePlayerPos(qJsonObject.value("player_id").toInt(), qVector);
         //qDebug() << qJsonValue;
     }
-
+    qTimer.start();
     //qDebug() << qJsonObject2.keys();
-
-
     //qDebug() << "interval value:" << interval;
 }
+
+void Thinker::doWork() {
+    /*if()
+    {
+
+    }*/
+}
+
 
 /*
 {"interval":500,"map":[25,25],"other_players":[{"alive":true,"coords":[21,21],"dir":"DOWN","id":1,"name":"DUMMY"}],"player":{"alive":true,"coords":[0,0],"dir":"UP","id":0,"name":"drop_table_users"},"walls":[{"coords":[0,1],"player_id":0},{"coords":[21,20],"player_id":1}]}

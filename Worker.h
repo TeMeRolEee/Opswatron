@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtCore/QObject>
-#include "MapStore.h"
 
 class Worker : public QObject
 {

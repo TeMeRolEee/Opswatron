@@ -15,20 +15,20 @@ private:
     int interval;
     QTimer qTimer;
     MapStore *mapStore;
-    Worker *worker;
     QThread workerThread;
     Players *players;
+    QString direction;
+    QVector<int> position;
 public:
     Thinker();
     ~Thinker();
 
     void setInterval(int interval);
     void statusHandler(const QString& input);
-
+    void doWork();
 public slots:
-    void handleWorkerResults_slot(const QString &value);
+
 signals:
-    void  operate_signal();
 
 };
 
