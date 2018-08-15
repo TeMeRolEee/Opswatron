@@ -5,6 +5,7 @@
 #include <QtCore/QTimer>
 #include "MapStore.h"
 #include "Worker.h"
+#include "Players.h"
 
 class Thinker : public QObject
 {
@@ -16,6 +17,7 @@ private:
     MapStore *mapStore;
     Worker *worker;
     QThread workerThread;
+    Players *players;
 public:
     Thinker();
     ~Thinker();

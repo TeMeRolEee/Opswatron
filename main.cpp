@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
     //std::cout << R"({"name": "drop_table_users"})" << std::endl;
 
-    qDebug() << "fdafsdalfjsodajfiopsodafjsdio";
+    //qDebug() << "fdafsdalfjsodajfiopsodafjsdio";
 
     while(go)
     {

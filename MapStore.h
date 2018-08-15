@@ -5,13 +5,16 @@
 #include <QtCore/QJsonArray>
 
 class MapStore {
-    QVector<bool> x_axis;
-    QVector<bool> y_axis;
+    QList<QVector<int>> matrix;
+    int width;
+    int height;
 
 public:
     MapStore();
     ~MapStore();
-
+    QVector<int> getXaxis(int currentY);
+    QVector<int> getYaxis(int currentX);
     void setMap(QJsonArray& jsonArray);
+    void setWall(const int &x, const int &y);
 };
 
