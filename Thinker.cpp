@@ -3,6 +3,7 @@
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonArray>
+#include <iostream>
 
 Thinker::Thinker() {
     players = new Players();
@@ -90,7 +91,7 @@ void Thinker::statusHandler(const QString& input) {
         qJsonObject = qJsonValue.toObject();
         QJsonArray coordArray = qJsonObject.value("coords").toArray();
         mapStore->setWall(coordArray.first().toInt(), coordArray.last().toInt());
-        qDebug() << coordArray.first().toInt() << coordArray.last().toInt();
+        //qDebug() << coordArray.first().toInt() << coordArray.last().toInt();
         QVector<int> qVector;
         qVector.push_back(coordArray.first().toInt());
         qVector.push_back(coordArray.last().toInt());
@@ -103,10 +104,81 @@ void Thinker::statusHandler(const QString& input) {
 }
 
 void Thinker::doWork() {
-    /*if()
+    QVector<int> closeset_wall_X;
+    QVector<int> closeset_wall_Y;
+    if(direction == "LEFT" || direction == "RIGHT")
     {
+        QVector<int> x_axis = mapStore->getXaxis(position.first());
+        if(direction == "LEFT")
+        {
+            for(int i = position.first(); i < mapStore->getWidth() - position.first(); i--)
+            {
+                if(x_axis.value(i) == 1 || i == 1)
+                {
+                    closeset_wall_X.push_back(i);
+                    closeset_wall_X.push_back(position.last());
+                }
+            }
+        } else
+        {
+            for(int i = position.first(); i < mapStore->getWidth(); i++)
+            {
+                if(x_axis.value(i) == 1 || i == mapStore->getWidth()-1)
+                {
+                    closeset_wall_X.push_back(i);
+                    closeset_wall_X.push_back(position.last());
+                }
+            }
+        }
+    }
+    if(direction == "UP" || direction == "DOWN")
+    {
+        QVector<int> y_axis = mapStore->getXaxis(position.first());
+        if(direction == "DOWN")
+        {
+            for(int i = position.first(); i < mapStore->getHeight() - position.last(); i--)
+            {
+                if(y_axis.value(i) == 1 || i == 1)
+                {
+                    closeset_wall_Y.push_back(i);
+                    closeset_wall_Y.push_back(position.last());
+                }
+            }
+        } else
+        {
+            for(int i = position.first(); i < mapStore->getHeight(); i++)
+            {
+                if(y_axis.value(i) == 1|| i == mapStore->getHeight()-1)
+                {
+                    closeset_wall_Y.push_back(i);
+                    closeset_wall_Y.push_back(position.last());
+                }
+            }
+        }
+    }
 
-    }*/
+    int diff_x = closeset_wall_X[0] - position.first();
+    int diff_y = closeset_wall_Y[0] - position.last();
+
+    if(diff_x < diff_y && diff_x < 0)
+    {
+        std::cout << R"({"dir": "UP"})" << std::endl;
+    }
+    if(diff_x > diff_y && diff_x > 0)
+    {
+        std::cout << R"({"dir": "DOWN"})" << std::endl;
+    }
+    if(diff_x < diff_y && diff_y < 0)
+    {
+        std::cout << R"({"dir": "LEFT"})" << std::endl;
+    }
+    if(diff_x > diff_y && diff_y > 0)
+    {
+        std::cout << R"({"dir": "RIGHT"})" << std::endl;
+    }
+
+
+
 }
 
 

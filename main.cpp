@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
         serverResponse = QString::fromStdString(temp);
         thinker->statusHandler(serverResponse);
         serverResponse.clear();
-        std::cout << R"({"dir": "UP"})" << std::endl;
+        //std::cout << R"({"dir": "UP"})" << std::endl;
     }
 
 

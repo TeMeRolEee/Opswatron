@@ -49,3 +49,11 @@ void MapStore::setWall(const int &x, const int &y) {
     matrix.replace(y, temp);
 }
 
+int MapStore::getWidth() const {
+    return width;
+}
+
+int MapStore::getHeight() const {
+    return height;
+}
+

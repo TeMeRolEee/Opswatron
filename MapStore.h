@@ -7,7 +7,13 @@
 class MapStore {
     QList<QVector<int>> matrix;
     int width;
+public:
+    int getWidth() const;
+
+private:
     int height;
+public:
+    int getHeight() const;
 
 public:
     MapStore();
