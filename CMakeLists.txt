@@ -11,5 +11,5 @@ find_package(Qt5Widgets HINTS ~/Qt/5.11.1/gcc_64/)
 
 add_executable(masterpiece main.cpp Thinker.cpp Thinker.h MapStore.cpp MapStore.h Worker.cpp Worker.h)
 
-target_link_libraries(masterpiece Qt5::Widgets)
+target_link_libraries(masterpiece Qt5::Core)
 

@@ -10,6 +10,7 @@ class Thinker : public QObject
 {
     Q_OBJECT
 private:
+    bool staticSet = false;
     int interval;
     QTimer qTimer;
     MapStore *mapStore;
@@ -20,9 +21,10 @@ public:
     ~Thinker();
 
     void setInterval(int interval);
+    void statusHandler(const QString& input);
 
 public slots:
-    void handleResults(const QString &value);
+    void handleWorkerResults_slot(const QString &value);
 signals:
     void  operate_signal();
 

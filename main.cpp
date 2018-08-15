@@ -3,14 +3,12 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
 #include <QDebug>
-#include "MapStore.h"
 #include "Thinker.h"
 
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);
     app.setApplicationVersion(QStringLiteral("0.1.0"));
-    std::cout << "Hello, World!" << std::endl;
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -24,7 +22,8 @@ int main(int argc, char* argv[])
 
     if(parser.isSet(QStringLiteral("i")))
     {
-        std::cout << R"({"name": "Taprika"})" << std::endl;
+        std::cout << R"({"name":"drop_table_users"})" << std::endl;
+        return 0;
     }
 
     bool go = true;
@@ -33,20 +32,22 @@ int main(int argc, char* argv[])
 
 
     Thinker *thinker = new Thinker();
+    QString serverResponse;
 
+    //std::cout << R"({"name": "drop_table_users"})" << std::endl;
 
-
-
-
-
-
-
+    qDebug() << "fdafsdalfjsodajfiopsodafjsdio";
 
     while(go)
     {
+        //std::cout << R"({"name":"drop_table_users"})" << std::endl;
         std::getline(std::cin, temp);
+        serverResponse = QString::fromStdString(temp);
+        thinker->statusHandler(serverResponse);
+        serverResponse.clear();
+        std::cout << R"({"dir": "UP"})" << std::endl;
     }
 
 
-    return app.exec();
+    return 0;
 }
