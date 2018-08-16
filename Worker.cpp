@@ -33,10 +33,22 @@ void Worker::processData(const QString &input) {
     }
     qJsonValue = qJsonObject.value("player");
     QJsonObject player = qJsonValue.toObject();
+
     qJsonValue = player.value("coords");
     qJsonArray = qJsonValue.toArray();
+
     currentX = qJsonArray.first().toInt();
     currentY = qJsonArray.last().toInt();
     direction = qJsonObject.value("dir").toString();
+
+    qJsonValue = qJsonObject.value("walls");
+    qJsonArray = qJsonValue.toArray();
+
+    for (auto item : qJsonArray) {
+        QJsonObject currentObject = item.toObject();
+        qJsonValue = currentObject.value("coords");
+        QJsonArray tempArray = qJsonValue.toArray();
+        map->modifyMap(tempArray.first().toInt(),tempArray.last().toInt());
+    }
 }
 
