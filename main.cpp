@@ -3,10 +3,9 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
 #include <QDebug>
-#include "Thinker.h"
+#include "Worker.h"
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
     app.setApplicationVersion(QStringLiteral("0.1.0"));
 
@@ -16,12 +15,11 @@ int main(int argc, char* argv[])
 
     parser.addOption(
             {{QStringLiteral("i"), QStringLiteral("info")}, QStringLiteral("Get the players info")}
-            );
+    );
 
     parser.process(app);
 
-    if(parser.isSet(QStringLiteral("i")))
-    {
+    if (parser.isSet(QStringLiteral("i"))) {
         std::cout << R"({"name":"drop_table_users"})" << std::endl;
         return 0;
     }
@@ -30,20 +28,19 @@ int main(int argc, char* argv[])
 
     std::string temp;
 
+    Worker *worker = new Worker();
 
-    Thinker *thinker = new Thinker();
     QString serverResponse;
 
     //std::cout << R"({"name": "drop_table_users"})" << std::endl;
 
     //qDebug() << "fdafsdalfjsodajfiopsodafjsdio";
 
-    while(go)
-    {
+    while (go) {
         //std::cout << R"({"name":"drop_table_users"})" << std::endl;
         std::getline(std::cin, temp);
         serverResponse = QString::fromStdString(temp);
-        thinker->statusHandler(serverResponse);
+
         serverResponse.clear();
         std::cout << R"({"dir": "UP"})" << std::endl;
     }

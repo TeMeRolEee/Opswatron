@@ -1,19 +1,15 @@
 #pragma once
 
 #include <QtCore/QObject>
-#include "MapStore.h"
+#include "Map.h"
 
-class Worker : public QObject
-{
-    Q_OBJECT
+class Worker : public QObject {
+Q_OBJECT
+
 private:
-
+    Map *map;
 public:
-    void currentThreadId();
-public slots:
-    void doWork_slot();
-
-signals:
-    void resultReady(const QString &result);
+    Worker();
+    ~Worker();
 };
 
