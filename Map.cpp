@@ -17,15 +17,19 @@ int Map::getHeight() const {
 }
 
 void Map::modifyMap(const int &x, const int &y) {
-
+    matrix[x][y] = 1;
 }
 
 QVector<int> Map::getXaxis(const int &requiredY) {
-    return QVector<int>();
+    return matrix.at(requiredY);
 }
 
 QVector<int> Map::getYaxis(const int &requiredX) {
-    return QVector<int>();
+    QVector<int> yAxis;
+    for (auto item : matrix) {
+        yAxis.push_back(item[requiredX]);
+    }
+    return yAxis;
 }
 
 void Map::setWidth(int width) {
@@ -39,8 +43,15 @@ void Map::setHeight(int height) {
 void Map::setMatrix() {
     QVector<int> xAxis;
     xAxis.reserve(width);
-    for(int i = 0; i < height; i++)
-    {
+    for (int i = 0; i < height; i++) {
         matrix.push_back(xAxis);
     }
+}
+
+Map::Map() {
+
+}
+
+Map::~Map() {
+
 }

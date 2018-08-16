@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         //std::cout << R"({"name":"drop_table_users"})" << std::endl;
         std::getline(std::cin, temp);
         serverResponse = QString::fromStdString(temp);
-
+        worker->processData(serverResponse);
         serverResponse.clear();
         std::cout << R"({"dir": "UP"})" << std::endl;
     }
